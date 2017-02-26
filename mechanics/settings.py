@@ -83,10 +83,12 @@ WSGI_APPLICATION = 'mechanics.wsgi.application'
 #     }
 # }
 
+MYSQL_DATABASE = 'django.db.backends.mysql'
+PSQL_DATABASE = 'django.db.backends.postgresql_psycopg2'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': MYSQL_DATABASE,
         'NAME': 'mechanics',
         'USER': 'myusername',
         'PASSWORD': 'mypassword',

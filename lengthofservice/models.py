@@ -2,6 +2,16 @@ from django.db import models
 from collections import namedtuple
 from django.db.models import Avg, F, DurationField
 from datetime import datetime, timedelta
+from django.conf import settings
+
+def database_timedelta(t):
+    """ Since MySQL and PostgreSQL use different datatypes to represent time intervals,
+    we have to do this to make sure that we can do our arithmatic in SQL in either database.
+    """
+    if settings.DATABASES['default']['ENGINE'] == settings.PSQL_DATABASE:
+        return t
+    else:
+        return float(t.total_seconds() * 1e6)
 
 class MechanicJobAnalysis(namedtuple('MechanicJobAnalysis', ['name', 'repair_type', 'repair_name', 'nat_avg', 'avg_time', 'mechanic'])):
     """ A namedtuple for storing mechanic job analysis results """
@@ -53,7 +63,8 @@ class ShopWorkflowFact(models.Model):
         """ For each mechanic and job type, get their average time they take to complete that kind of job, and the national average for that job """
 
         # Construct an SQL expression which will calcualte the average time taken over a group of ShopWorkflowFact rows
-        avg_expr = Avg(F('pickup') - F('dropoff') + timedelta(1), output_field=DurationField())
+        one_day = database_timedelta(timedelta(1))
+        avg_expr = Avg(F('pickup') - F('dropoff') + one_day, output_field=DurationField())
 
         # Group by mechanic and repair type, and get the average times.
         results = ShopWorkflowFact.objects.values('mechanic', 'repair_type').annotate(

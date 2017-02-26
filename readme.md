@@ -2,29 +2,64 @@
 
 Figure out which mechanics are best at which jobs!
 
-## Installation
+## Database Installation
 
-### Database a.k.a. you have to use PostgreSQL
+### You have to use PostgreSQL or MySQL
 
-I decided to perform the date/time arithmatic in SQL (see notes section).  Since Django [doesn't actually support](https://docs.djangoproject.com/en/1.10/ref/models/fields/#durationfield) this for any databases other than PostgreSQL, you are forced to use it!
+I decided to perform the date/time arithmatic in SQL (see notes section). As a result, you can't use sqlite3 since it stores datetimes as strings, and hence doesn't aggregation over time intervals. PostgreSQL has an interval data type and MySQL just uses microseconds, so they work OK.
+
+### Picking a database
+
+In settings.py, you can change `DATABASES['default']['engine']` to select whether to use mysql or postgresql
+
+### PostgreSQL 
 
 #### Installing on a mac
 
 	brew install postgresql
+	pg_ctl -D /usr/local/var/postgres start
 
 #### Configuring the database
 
-You will have to create a `mechanics` database with a user `myusername`:`mypassword`.
+You will have to create a `mechanics` database with a user `myusername`:`mypassword`, then shell into the database
 
 	createdb mechanics
     psql -h localhost mechanics
+
+And enter some commands
+
+```sql
+CREATE ROLE myusername WITH LOGIN PASSWORD 'mypassword';
+GRANT ALL PRIVILEGES ON DATABASE mechanics TO myusername;
+ALTER USER myusername CREATEDB;
+```
+
+### MySQL
+
+#### Installing on a mac
+
+	brew install msql
+	mysql.server start
     
-    mechanics=# CREATE ROLE myusername WITH LOGIN PASSWORD 'mypassword';
-    mechanics=# GRANT ALL PRIVILEGES ON DATABASE mechanics TO myusername;
-    mechanics=# ALTER USER myusername CREATEDB;
 
+#### Configuring the database
 
-### Django app
+Log into the database
+
+	mysql -u root -p
+
+Then enter some commands
+
+``` sql
+CREATE DATABASE taskbuster_db;
+CREATE USER 'myusername'@'localhost' IDENTIFIED BY 'mypassword';
+GRANT ALL PRIVILEGES ON mechanic.* TO 'myusername'@'localhost';
+GRANT ALL PRIVILEGES ON test_mechanic.* TO 'myusername'@'localhost';
+FLUSH PRIVILEGES;
+quit
+```
+
+## Django app installation
 
 Simply install the requirements (django and psycopg2); you may wish to use a virtualenv.
 
@@ -54,14 +89,14 @@ Then navigate to `http://localhost:8000/admin` to set up more data, and check th
 >>> ShopWorkflowFact.GetRankings()
 ```
 
-
 ## Notes
 
 Note that all of the ranking logic is performed in a single SQL query using joins and aggregates. The code in models.py: ShopWorkflowFact.GetRankings() contructs it like this:
 
 ``` python
 # Construct an SQL expression which will calcualte the average time taken over a group of ShopWorkflowFact rows
-avg_expr = Avg(F('pickup') - F('dropoff') + timedelta(1), output_field=DurationField())
+one_day = database_timedelta(timedelta(1))
+avg_expr = Avg(F('pickup') - F('dropoff') + one_day, output_field=DurationField())
 
 # Group by mechanic and repair type, and get the average times.
 results = ShopWorkflowFact.objects.values('mechanic', 'repair_type').annotate(

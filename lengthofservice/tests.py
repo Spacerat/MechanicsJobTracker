@@ -46,5 +46,5 @@ class TestStuff(TestCase):
 				out.append("-----------------------")
 			out.append(str(x))
 		result = "\n".join(out+[""])
-		# self.assertEqual(result, EXPECTED)
+		self.assertEqual(result, EXPECTED)
 		print(result)
