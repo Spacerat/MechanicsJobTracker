@@ -1,0 +1,215 @@
+[
+    {
+        "fields": {
+            "name": "Rich"
+        },
+        "model": "lengthofservice.mechanic",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "name": "Bob"
+        },
+        "model": "lengthofservice.mechanic",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "name": "Larry"
+        },
+        "model": "lengthofservice.mechanic",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "name": "Simone"
+        },
+        "model": "lengthofservice.mechanic",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "name": "Peter"
+        },
+        "model": "lengthofservice.mechanic",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "name": "oil change",
+            "national_average": "1 00:00:00"
+        },
+        "model": "lengthofservice.repairtype",
+        "pk": "A"
+    },
+    {
+        "fields": {
+            "name": "tire repair",
+            "national_average": "1 00:00:00"
+        },
+        "model": "lengthofservice.repairtype",
+        "pk": "B"
+    },
+    {
+        "fields": {
+            "name": "engine inspection",
+            "national_average": "3 00:00:00"
+        },
+        "model": "lengthofservice.repairtype",
+        "pk": "C"
+    },
+    {
+        "fields": {
+            "name": "tune-up",
+            "national_average": "2 00:00:00"
+        },
+        "model": "lengthofservice.repairtype",
+        "pk": "D"
+    },
+    {
+        "fields": {
+            "name": "brake service",
+            "national_average": "3 00:00:00"
+        },
+        "model": "lengthofservice.repairtype",
+        "pk": "E"
+    },
+    {
+        "fields": {
+            "name": "oil gasket replacement",
+            "national_average": "2 12:00:00"
+        },
+        "model": "lengthofservice.repairtype",
+        "pk": "F"
+    },
+    {
+        "fields": {
+            "dropoff": "2016-12-01",
+            "mechanic": 2,
+            "pickup": "2016-12-01",
+            "repair_type": "A"
+        },
+        "model": "lengthofservice.shopworkflowfact",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "dropoff": "2016-12-02",
+            "mechanic": 1,
+            "pickup": "2016-12-04",
+            "repair_type": "D"
+        },
+        "model": "lengthofservice.shopworkflowfact",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "dropoff": "2016-12-03",
+            "mechanic": 1,
+            "pickup": "2016-12-07",
+            "repair_type": "D"
+        },
+        "model": "lengthofservice.shopworkflowfact",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "dropoff": "2016-12-04",
+            "mechanic": 1,
+            "pickup": "2016-12-05",
+            "repair_type": "A"
+        },
+        "model": "lengthofservice.shopworkflowfact",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "dropoff": "2016-12-04",
+            "mechanic": 4,
+            "pickup": "2016-12-06",
+            "repair_type": "E"
+        },
+        "model": "lengthofservice.shopworkflowfact",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "dropoff": "2016-12-01",
+            "mechanic": 3,
+            "pickup": "2016-12-02",
+            "repair_type": "F"
+        },
+        "model": "lengthofservice.shopworkflowfact",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "dropoff": "2016-12-02",
+            "mechanic": 5,
+            "pickup": "2016-12-05",
+            "repair_type": "F"
+        },
+        "model": "lengthofservice.shopworkflowfact",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "dropoff": "2016-12-09",
+            "mechanic": 4,
+            "pickup": "2016-12-09",
+            "repair_type": "B"
+        },
+        "model": "lengthofservice.shopworkflowfact",
+        "pk": 8
+    },
+    {
+        "fields": {
+            "dropoff": "2016-12-04",
+            "mechanic": 5,
+            "pickup": "2016-12-05",
+            "repair_type": "D"
+        },
+        "model": "lengthofservice.shopworkflowfact",
+        "pk": 9
+    },
+    {
+        "fields": {
+            "dropoff": "2016-12-02",
+            "mechanic": 4,
+            "pickup": "2016-12-06",
+            "repair_type": "C"
+        },
+        "model": "lengthofservice.shopworkflowfact",
+        "pk": 10
+    },
+    {
+        "fields": {
+            "dropoff": "2016-12-02",
+            "mechanic": 4,
+            "pickup": "2016-12-02",
+            "repair_type": "A"
+        },
+        "model": "lengthofservice.shopworkflowfact",
+        "pk": 11
+    },
+    {
+        "fields": {
+            "dropoff": "2016-12-03",
+            "mechanic": 4,
+            "pickup": "2016-12-04",
+            "repair_type": "A"
+        },
+        "model": "lengthofservice.shopworkflowfact",
+        "pk": 12
+    },
+    {
+        "fields": {
+            "dropoff": "2016-11-20",
+            "mechanic": 1,
+            "pickup": "2016-11-27",
+            "repair_type": "D"
+        },
+        "model": "lengthofservice.shopworkflowfact",
+        "pk": 13
+    }
+]
